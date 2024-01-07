@@ -2,4 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Primary Color -->
+    <color name="primary">#272829</color>
+    <color name="primary_dark">#1A1B1C</color> <!-- A darker shade for the ActionBar or similar elements -->
+
+    <!-- Secondary Color -->
+    <color name="secondary">#61677A</color>
+
+    <!-- Ternary Color -->
+    <color name="ternary">#FFF6E0</color>
+
+    <!-- Additional Colors -->
+    <color name="accent">#FF4081</color>
+    <color name="background">#F5F5F5</color>
+    <color name="text">#333333</color>
 </resources>
