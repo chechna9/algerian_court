@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="20dp"
+    android:gravity="right"
     android:background="@drawable/shape"
     android:padding="16dp">
 
@@ -31,4 +32,13 @@
         android:text="DateArret"
         android:textSize="16sp"
         android:layout_marginTop="8dp"/>
+    <ImageView
+        android:id="@+id/imageViewFavorite"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_favorite"
+    android:visibility="invisible"
+    android:layout_gravity="start"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"/>
 </LinearLayout>
