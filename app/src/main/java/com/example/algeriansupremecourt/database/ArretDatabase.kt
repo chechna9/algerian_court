@@ -22,7 +22,7 @@ abstract class ArretDatabase : RoomDatabase() {
                     context.applicationContext,
                     ArretDatabase::class.java,
                     "arret_database"
-                ).build()
+                ).allowMainThreadQueries().build()
                 INSTANCE = instance
                 instance
             }

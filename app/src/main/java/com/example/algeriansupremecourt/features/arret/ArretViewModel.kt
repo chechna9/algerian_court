@@ -1,25 +1,22 @@
 package com.example.algeriansupremecourt.features.arret
-import com.example.algeriansupremecourt.repository.ArretRepo
+import android.app.Application
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 
 
-class ArretViewModel(private val repository: ArretRepo): ViewModel() {
+class ArretViewModel(private val application: Application): AndroidViewModel(application) {
+    private val arretApplication: ArretApplication
+        get() = getApplication() as ArretApplication
 
+    private val repository by lazy { arretApplication.repository }
     suspend fun allArrets(): LiveData<List<ArretModel>> = repository.allArrets()
+    fun insertArretsFromJson(arrets:List<ArretModel>) =
 
-    fun insertArret(arret: ArretModel) {
         viewModelScope.launch {
-            repository.insertArret(arret)
+            repository.insertArrets(arrets)
         }
-    }
 
-    fun updateArret(arret: ArretModel) {
-        viewModelScope.launch {
-            repository.updateArret(arret)
-        }
-    }
 
     fun markAsFavorite(id: Long) {
         viewModelScope.launch {
@@ -39,5 +36,14 @@ class ArretViewModel(private val repository: ArretRepo): ViewModel() {
 
     suspend fun getFavoriteArrets(): LiveData<List<ArretModel>> {
         return repository.getFavoriteArrets()
+    }
+}
+
+class ArretViewModelFactory(private val application: Application) :ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ArretViewModel::class.java)) {
+            return ArretViewModel(application) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
 }

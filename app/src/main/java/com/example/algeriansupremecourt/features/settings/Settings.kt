@@ -16,9 +16,19 @@ import com.example.algeriansupremecourt.R
 import android.widget.Button
 import android.net.Uri
 import android.util.Log
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import com.example.algeriansupremecourt.database.ArretDatabase
 import com.example.algeriansupremecourt.features.arret.ArretModel
+import com.example.algeriansupremecourt.features.arret.ArretViewModel
+import com.example.algeriansupremecourt.features.arret.ArretViewModelFactory
+import com.example.algeriansupremecourt.repository.ArretRepo
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken
 import com.google.gson.Gson
+import kotlinx.coroutines.launch
 
 
 class Settings : Fragment() {
@@ -27,7 +37,9 @@ class Settings : Fragment() {
 
 
     private val FILE_PICKER_REQUEST_CODE = 123
-
+    private val arretViewModel:ArretViewModel by viewModels{
+        ArretViewModelFactory((requireActivity().application))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,12 +51,24 @@ class Settings : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Access your views and set up click listeners here
         val btnLoadData = view.findViewById<Button>(R.id.btnLoadData)
+        val btnClearDB = view.findViewById<Button>(R.id.btnDeleteData)
+
+
         btnLoadData.setOnClickListener {
             // Call a function to handle loading data from JSON
             openFilePicker()
+        }
+
+        btnClearDB.setOnClickListener {
+            lifecycleScope.launch {
+                arretViewModel.allArrets().observe(viewLifecycleOwner, Observer { arrets ->
+                    Log.d("del",arrets[0].decisionArret)
+
+                })
+
+            }
         }
     }
 
@@ -64,32 +88,33 @@ class Settings : Fragment() {
         if (requestCode == FILE_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             data?.data?.let { fileUri ->
                 // Call a function to handle loading data from the selected JSON file
+
                 loadDataFromJson(fileUri,requireContext())
             }
+        }
+    }
+    private fun loadDataFromJson(fileUri: Uri,context: Context)  {
+        try {
+            val inputStream = context.contentResolver.openInputStream(fileUri)
+            val size = inputStream?.available() ?: 0
+            val buffer = ByteArray(size)
+            inputStream?.read(buffer)
+            inputStream?.close()
+            val jsonString = String(buffer)
+            // Parse JSON using Gson into a list of your data model
+            val listType = object : TypeToken<List<ArretModel>>() {}.type
+            val dataList: List<ArretModel> = Gson().fromJson(jsonString, listType)
+
+            // TODO: Store dataList in your local database (SQLite or Room)
+        arretViewModel.insertArretsFromJson(dataList)
+
+            Log.d("json", dataList[0].dateArret)
+        } catch (e: Exception) {
+            // Handle exceptions (e.g., JSON parsing error, file not found, etc.)
+            // TODO: Notify the user about the error
+            Log.e("json","Error " + e.message)
         }
     }
 
 }
 
-private fun loadDataFromJson(fileUri: Uri,context: Context) {
-    try {
-        val inputStream = context.contentResolver.openInputStream(fileUri)
-        val size = inputStream?.available() ?: 0
-        val buffer = ByteArray(size)
-        inputStream?.read(buffer)
-        inputStream?.close()
-        val jsonString = String(buffer)
-        // Parse JSON using Gson into a list of your data model
-        val listType = object : TypeToken<List<ArretModel>>() {}.type
-        val dataList: List<ArretModel> = Gson().fromJson(jsonString, listType)
-
-        // TODO: Store dataList in your local database (SQLite or Room)
-        Log.d("json", dataList[0].dateArret)
-
-        // TODO: Notify the user that data has been loaded successfully
-    } catch (e: Exception) {
-        // Handle exceptions (e.g., JSON parsing error, file not found, etc.)
-        // TODO: Notify the user about the error
-        Log.e("json","Error" + e.message)
-    }
-}
