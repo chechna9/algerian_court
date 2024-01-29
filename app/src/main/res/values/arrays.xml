@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="years_array">
+        <item>2024</item>
+        <item>2023</item>
+        <item>2022</item>
+    </string-array>
+
+    <string-array name="source_array">
+        <item>المرجع 1</item>
+        <item>المرجع 2</item>
+        <item>المرجع 3</item>
+    </string-array>
+
+    <string-array name="chambre_array">
+        <item>الغرفة 1</item>
+        <item>الغرفة 2</item>
+        <item>الغرفة 3</item>
+    </string-array>
+</resources>
