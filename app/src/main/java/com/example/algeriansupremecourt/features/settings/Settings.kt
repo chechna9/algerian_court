@@ -3,6 +3,7 @@ package com.example.algeriansupremecourt.features.settings
 // Inside your Settings fragment class
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +15,10 @@ import com.example.algeriansupremecourt.R
 //import com.google.gson.reflect.TypeToken
 import android.widget.Button
 import android.net.Uri
+import android.util.Log
+import com.example.algeriansupremecourt.features.arret.ArretModel
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken
+import com.google.gson.Gson
 
 
 class Settings : Fragment() {
@@ -59,32 +64,32 @@ class Settings : Fragment() {
         if (requestCode == FILE_PICKER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             data?.data?.let { fileUri ->
                 // Call a function to handle loading data from the selected JSON file
-                loadDataFromJson(fileUri)
+                loadDataFromJson(fileUri,requireContext())
             }
         }
     }
 
 }
 
-private fun loadDataFromJson(fileUri: Uri):Int {
-    return 1;
-//    try {
-//        val inputStream = requireContext().contentResolver.openInputStream(fileUri)
-//        val size = inputStream?.available() ?: 0
-//        val buffer = ByteArray(size)
-//        inputStream?.read(buffer)
-//        inputStream?.close()
-//        val json = String(buffer)
-//
-//        // Parse JSON using Gson into a list of your data model
-//        val listType = object : TypeToken<List<ArretModel>>() {}.type
-//        val dataList: List<ArretModel> = Gson().fromJson(json, listType)
-//
-//        // TODO: Store dataList in your local database (SQLite or Room)
-//
-//        // TODO: Notify the user that data has been loaded successfully
-//    } catch (e: Exception) {
-//        // Handle exceptions (e.g., JSON parsing error, file not found, etc.)
-//        // TODO: Notify the user about the error
-//    }
+private fun loadDataFromJson(fileUri: Uri,context: Context) {
+    try {
+        val inputStream = context.contentResolver.openInputStream(fileUri)
+        val size = inputStream?.available() ?: 0
+        val buffer = ByteArray(size)
+        inputStream?.read(buffer)
+        inputStream?.close()
+        val jsonString = String(buffer)
+        // Parse JSON using Gson into a list of your data model
+        val listType = object : TypeToken<List<ArretModel>>() {}.type
+        val dataList: List<ArretModel> = Gson().fromJson(jsonString, listType)
+
+        // TODO: Store dataList in your local database (SQLite or Room)
+        Log.d("json", dataList[0].dateArret)
+
+        // TODO: Notify the user that data has been loaded successfully
+    } catch (e: Exception) {
+        // Handle exceptions (e.g., JSON parsing error, file not found, etc.)
+        // TODO: Notify the user about the error
+        Log.e("json","Error" + e.message)
+    }
 }

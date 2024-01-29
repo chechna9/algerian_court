@@ -8,6 +8,8 @@ import androidx.room.Update
 
 @Dao
 interface ArretDao {
+    @Insert
+    suspend fun insertArrets(arrets: List<ArretModel>)
 
     @Insert
      fun insertArret(arret: ArretModel): Long
