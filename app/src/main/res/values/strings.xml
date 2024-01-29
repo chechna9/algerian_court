@@ -2,4 +2,9 @@
     <string name="app_name">Algerian Supreme Court</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="filter_1_prompt">str1</string>
+    <string name="filter_2_prompt">str2</string>
+    <string name="filter_3_prompt">str3</string>
+    <string name="arabic_header">Your Arabic Header</string>
 </resources>
