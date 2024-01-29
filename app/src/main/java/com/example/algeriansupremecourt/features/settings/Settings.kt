@@ -63,11 +63,7 @@ class Settings : Fragment() {
 
         btnClearDB.setOnClickListener {
             lifecycleScope.launch {
-                arretViewModel.allArrets().observe(viewLifecycleOwner, Observer { arrets ->
-                    Log.d("del",arrets[0].decisionArret)
-
-                })
-
+                arretViewModel.deleteAllArrets()
             }
         }
     }

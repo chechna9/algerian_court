@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.algeriansupremecourt.R
 
 class ArretAdapter : RecyclerView.Adapter<ArretAdapter.ViewHolder>() {
-    var onItemClick: (() -> Unit)? = null
+    var onItemClick: ((ArretModel) -> Unit)? = null
 
     private var arrets: List<ArretModel> = emptyList()
 
@@ -19,6 +19,11 @@ class ArretAdapter : RecyclerView.Adapter<ArretAdapter.ViewHolder>() {
         val chambreArret: TextView = itemView.findViewById(R.id.textViewChambreArret)
         val dateArret: TextView = itemView.findViewById(R.id.textViewDateArret)
         val imageViewFavorite: ImageView = itemView.findViewById(R.id.imageViewFavorite)
+        init {
+            itemView.setOnClickListener {
+                onItemClick?.invoke(arrets[adapterPosition])
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

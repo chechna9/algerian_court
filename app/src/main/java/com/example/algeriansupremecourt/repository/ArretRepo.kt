@@ -12,7 +12,9 @@ import com.google.gson.reflect.TypeToken
 class ArretRepo(private val arretDao: ArretDao) {
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-
+    suspend fun deleteAllArrets() {
+        arretDao.deleteAllArrets()
+    }
     suspend fun insertArrets( arrets:List<ArretModel>) {
             arretDao.insertArrets(arrets)
     }

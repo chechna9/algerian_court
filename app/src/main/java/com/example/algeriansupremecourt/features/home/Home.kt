@@ -1,5 +1,6 @@
 package com.example.algeriansupremecourt.features.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.algeriansupremecourt.R
 import com.example.algeriansupremecourt.features.arret.ArretAdapter
+import com.example.algeriansupremecourt.features.arret.ArretDetailDialogFragment
 import com.example.algeriansupremecourt.features.arret.ArretModel
 import com.example.algeriansupremecourt.features.arret.ArretViewModel
 import com.example.algeriansupremecourt.features.arret.ArretViewModelFactory
@@ -78,8 +80,13 @@ class Home : Fragment() {
                 adapter.updateData(arrets) // Update the adapter with the new data
             })
         }
-
+        adapter.onItemClick = {arret -> navigateToDetailDialog(arret)}
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
     }
+    private fun navigateToDetailDialog(arret: ArretModel) {
+        val detailDialogFragment = ArretDetailDialogFragment(arret)
+        detailDialogFragment.show(childFragmentManager, detailDialogFragment.tag)
+    }
+
 }

@@ -17,7 +17,11 @@ class ArretViewModel(private val application: Application): AndroidViewModel(app
             repository.insertArrets(arrets)
         }
 
-
+    fun deleteAllArrets() {
+        viewModelScope.launch {
+            repository.deleteAllArrets()
+        }
+    }
     fun markAsFavorite(id: Long) {
         viewModelScope.launch {
             repository.markAsFavorite(id)

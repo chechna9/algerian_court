@@ -1,0 +1,109 @@
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="end"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewNumArret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NumArret"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/textViewChambreArret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ChambreArret"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewRefArret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RefArret"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewAnneeRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AnneeRef"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewNumRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="numRef"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewNumPageRef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="numPageRef"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewDateArret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DateArret"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewPartiesArret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PartiesArret"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewPrincipeArret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PrincipeArret"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewDecisionArret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DecisionArret"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewDecisionOpArret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DecisionOpArret"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/textViewCompositionArret"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CompositionArret"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout>
+</androidx.core.widget.NestedScrollView>

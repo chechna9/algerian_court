@@ -8,6 +8,8 @@ import androidx.room.Update
 
 @Dao
 interface ArretDao {
+    @Query("DELETE FROM arrets")
+     fun deleteAllArrets()
     @Insert
      fun insertArrets(arrets: List<ArretModel>)
 
